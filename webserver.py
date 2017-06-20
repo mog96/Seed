@@ -35,9 +35,6 @@ import redis
 from bson import json_util
 from bson.objectid import ObjectId
 
-MONGODB_DB_URL = 'mongodb://heroku_qzkzsqmj:bejucbi1s53qb9ldqobd166od5@ds157529.mlab.com:57529/heroku_qzkzsqmj'
-MONGODB_DB_NAME = 'heroku_qzkzsqmj'
-
 define('port', default=5000, help='run on the given port', type=int)
 define('debug', default=False, help='run in debug mode', metavar='True|False', type=bool)
 define('heartbeat', default=False, help='check client-side heartbeats', metavar='True|False', type=bool)
@@ -45,6 +42,8 @@ define('production', default=False, help='run in Production or Testing mode', me
 
 environ['CONFIG'] = './page.conf'
 
+MONGODB_DB_URL = environ['MONGODB_DB_URL']
+MONGODB_DB_NAME = environ['MONGODB_DB_NAME']
 client = MongoClient(MONGODB_DB_URL)
 db = client[MONGODB_DB_NAME]
 
