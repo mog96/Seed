@@ -767,9 +767,11 @@ class GameConnection(SockJSConnection):
 
 class RegisterHandler(tornado.web.RequestHandler):
     def post(self):
-        name = self.get_argument('name')
+        name = self.get_argument('mid')
+        assignment_id = self.get_argument('aid')
         result = db.players.insert_one({
-            "name" : name
+            "name": name,
+            "assignment_id": assignment_id
             })
 
         WaitingRoomConnection.oid_dict[str(result.inserted_id)] = name

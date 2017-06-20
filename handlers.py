@@ -47,13 +47,15 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
-        mid = self.get_argument("mid")
-        self.render("index.html", title="Oxford Experiments", mid=mid)
+        mid = self.get_argument('mid')
+        aid = self.get_argument('aid')
+        self.render("index.html", title="Oxford Experiments", mid=mid, aid=aid)
 
 class SessionHandler(BaseHandler):
     def post(self):
-        name = self.get_argument('name')
-        self.render("session.html", title="Oxford Experiments", name = name)
+        mid = self.get_argument('mid')
+        aid = self.get_argument('aid')
+        self.render("session.html", title="Oxford Experiments", mid=mid, aid=aid)
 
 class QuizHandler(BaseHandler):
     def post(self, submit):
