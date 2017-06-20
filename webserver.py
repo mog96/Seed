@@ -42,8 +42,8 @@ define('production', default=False, help='run in Production or Testing mode', me
 
 environ['CONFIG'] = './page.conf'
 
-MONGODB_DB_URL = environ['MONGODB_DB_URL']
-MONGODB_DB_NAME = environ['MONGODB_DB_NAME']
+MONGODB_DB_URL = str(environ['MONGODB_DB_URL'])
+MONGODB_DB_NAME = str(environ['MONGODB_DB_NAME'])
 
 print "MONGODB_DB_URL", MONGODB_DB_URL
 print "MONGODB_DB_NAME", MONGODB_DB_NAME
