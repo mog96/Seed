@@ -49,7 +49,7 @@ class MainHandler(BaseHandler):
     def get(self):
         mid = self.get_argument('mid')
         aid = self.get_argument('aid')
-        if !aid:
+        if aid is None:
             aid = ''
         self.render("index.html", title="Oxford Experiments", mid=mid, aid=aid)
 
