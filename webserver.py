@@ -44,6 +44,10 @@ environ['CONFIG'] = './page.conf'
 
 MONGODB_DB_URL = environ['MONGODB_DB_URL']
 MONGODB_DB_NAME = environ['MONGODB_DB_NAME']
+
+print "MONGODB_DB_URL", MONGODB_DB_URL
+print "MONGODB_DB_NAME", MONGODB_DB_NAME
+
 client = MongoClient(MONGODB_DB_URL)
 db = client[MONGODB_DB_NAME]
 
