@@ -42,13 +42,13 @@ define('production', default=False, help='run in Production or Testing mode', me
 
 environ['CONFIG'] = './page.conf'
 
-MONGODB_DB_URL = str(environ['MONGODB_DB_URL'])
-MONGODB_DB_NAME = str(environ['MONGODB_DB_NAME'])
+MONGODB_URI = environ['MONGODB_URI']
+MONGODB_DB_NAME = environ['MONGODB_DB_NAME']
 
-print "MONGODB_DB_URL", MONGODB_DB_URL
+print "MONGODB_URI", MONGODB_URI
 print "MONGODB_DB_NAME", MONGODB_DB_NAME
 
-client = MongoClient(MONGODB_DB_URL)
+client = MongoClient(MONGODB_URI)
 db = client[MONGODB_DB_NAME]
 
 tornado.options.parse_config_file(environ.get('CONFIG'))

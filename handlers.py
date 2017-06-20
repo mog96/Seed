@@ -29,12 +29,12 @@ import redis
 from bson import json_util
 from bson.objectid import ObjectId
 
-MONGODB_DB_URL = 'mongodb://heroku_qzkzsqmj:bejucbi1s53qb9ldqobd166od5@ds157529.mlab.com:57529/heroku_qzkzsqmj'
-MONGODB_DB_NAME = 'heroku_qzkzsqmj'
-
 environ['CONFIG'] = './page.conf'
 
-client = MongoClient(MONGODB_DB_URL)
+MONGODB_URI = environ['MONGODB_URI']
+MONGODB_DB_NAME = environ['MONGODB_DB_NAME']
+
+client = MongoClient(MONGODB_URI)
 db = client[MONGODB_DB_NAME]
 
 
