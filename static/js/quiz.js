@@ -121,7 +121,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval',
     $scope.quiz.mistake = false;
 
     $scope.quiz.newPage = function(page){
-      $window.location.assign("/quiz/user/" + oid + "#/" + page);
+      $window.location.assign("/quiz/user/" + oid + "#/page/" + page);
       $scope.quiz.continue = false;
       $scope.quiz.mistake = false;
     }
