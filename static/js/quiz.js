@@ -115,16 +115,19 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
         ]
       }
     ];
+    $scope.quiz.attemptsPerQuestion = new Array($scope.quiz.pages.length);
     $scope.quiz.numQuestions = 0;
     var i;
     for (i = 0; i < $scope.quiz.pages.length; i++) {
       var j;
+      $scope.quiz.attemptsPerQuestion.push([]);
       for (j = 0; j < $scope.quiz.pages[i].questions.length; j++) {
         $scope.quiz.numQuestions += 1;
+        $scope.quiz.attemptsPerQuestion[j].push(0);
       }
     }
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
-    $scope.quiz.attemptsPerQuestion = [];
+    $scope.quiz.attemptsPerQuestion.fill([]);
     $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
@@ -149,15 +152,10 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
       var pageSolns = $scope.quiz.solutions[$scope.quiz.pageIndex];
       var i;
       for (i = 0; i < pageSolns.length; i++) {
+        $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
         if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
           return;
-        } else {
-          if ($scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex]) {
-            $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
-          } else {
-            $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex] = [1];
-          }
         }
       }
       $scope.quiz.newPage(Number($scope.quiz.pageIndex) + 1);
