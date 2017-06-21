@@ -115,18 +115,17 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
         ]
       }
     ];
-    $scope.quiz.attemptsPerQuestion = new Array($scope.quiz.pages.length);
     $scope.quiz.numQuestions = 0;
     var i;
     for (i = 0; i < $scope.quiz.pages.length; i++) {
       var j;
-      $scope.quiz.attemptsPerQuestion[i] = new Array($scope.quiz.pages[i].questions.length, 0);
       for (j = 0; j < $scope.quiz.pages[i].questions.length; j++) {
         $scope.quiz.numQuestions += 1;
       }
     }
     console.log("ATTEMPTS INIT", $scope.quiz.attemptsPerQuestion);
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
+    $scope.quiz.attemptsPerQuestion = [[0], [0], [0, 0], [0, 0]];
     $scope.quiz.attemptsPerQuestion.fill([]);
     $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
