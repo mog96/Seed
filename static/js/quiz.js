@@ -25,8 +25,13 @@ quizApp.config(['$routeProvider',
     });
   }]);
 
-quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeParams',
-  function ($scope, $window, $interval, $routeParams) {
+// NOTE: Must update if quiz questions changed.
+quizApp.service("dataModel", function() {
+    this.attemptsPerQuestion = [[0], [0], [0, 0], [0, 0]];
+});
+
+quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeParams', 'dataModel',
+  function ($scope, $window, $interval, $routeParams, dataModel) {
     $scope.quiz = {};
     $scope.quiz.pages = [
       // Page 1
@@ -122,7 +127,6 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
       }
     }
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
-    $scope.quiz.attemptsPerQuestion = [[0], [0], [0, 0], [0, 0]];
     $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
@@ -147,8 +151,8 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
       var pageSolns = $scope.quiz.solutions[$scope.quiz.pageIndex];
       var i;
       for (i = 0; i < pageSolns.length; i++) {
-        $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
-        console.log("UPDATED", $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i]);
+        dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
+        console.log("UPDATED", dataModel.attemptsPerQuestion[$scope.quiz.pageIndex]);
         if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
           return;
@@ -159,14 +163,14 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
 
     $scope.quiz.numCorrect = function() {
       var singleAttempts = 0;
-      for (var i = 0; i < $scope.quiz.attemptsPerQuestion.length; i++) {
-        for (var j = 0; j < $scope.quiz.attemptsPerQuestion[i].length; j++) {
-          if ($scope.quiz.attemptsPerQuestion[i][j] === 1) {
+      for (var i = 0; i < dataModel.attemptsPerQuestion.length; i++) {
+        for (var j = 0; j < dataModel.attemptsPerQuestion[i].length; j++) {
+          if (dataModel.attemptsPerQuestion[i][j] === 1) {
             singleAttempts += 1;
           }
         }
       }
-      console.log("ATTEMPTS", $scope.quiz.attemptsPerQuestion);
+      console.log("ATTEMPTS", dataModel.attemptsPerQuestion);
       console.log("SINGLE ATTEMPT COUNT", singleAttempts);
       return singleAttempts;
     }
