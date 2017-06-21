@@ -138,7 +138,11 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval',
           return;
         }
       }
-      $scope.quiz.newPage(question + 1);
+      if ($scope.page_index === $scope.quiz.pages.length) {
+        $window.location.assign("/results");
+      } else {
+        $scope.quiz.newPage($scope.page_index + 1);
+      }
     }
 
     $scope.quiz.finish = function() {
