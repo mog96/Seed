@@ -172,11 +172,13 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           }
         }
       }
-      console.log("SINGLE ATTEMPTS", singleAttempts);
+      console.log("ATTEMPTS", $scope.quiz.attemptsPerQuestion);
+      console.log("SINGLE ATTEMPT COUNT", singleAttempts);
       return singleAttempts;
     }
 
     $scope.quiz.pass = function() {
+      console.log("NUM QUESTIONS", $scope.quiz.numQuestions);
       var score = Number($scope.quiz.numCorrect) / Number($scope.quiz.numQuestions);
       console.log(score);
       return score > 0.66;
