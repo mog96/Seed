@@ -166,7 +166,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     $scope.quiz.numCorrect = function() {
       var singleAttempts = 0;
       for (var i = 0; i < $scope.quiz.attemptsPerQuestion.length; i++) {
-        for (var j = $scope.quiz.attemptsPerQuestion[i].length; j++) {
+        for (var j = 0; j < $scope.quiz.attemptsPerQuestion[i].length; j++) {
           if ($scope.quiz.attemptsPerQuestion[i][j] == 1) {
             singleAttempts += 1;
           }
