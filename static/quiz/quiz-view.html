@@ -4,4 +4,5 @@
   <div ng-repeat="answer in question.answers">
     <input type="radio" ng-model="quiz.selectedAnswers[$parent.$index]" value="{{$index}}" ng-click="quiz.continue=true"/> {{answer}}</div>
 </div>
+<p>&nbsp;</p>
 <input ng-show="quiz.continue" type="submit" value="OK" class="button" ng-click="quiz.validate()"/>
