@@ -12,7 +12,7 @@ quizApp.config(['$routeProvider',
       templateUrl: '/static/quiz/start.html',
       controller: 'QuizController'
     }).
-    when('/page/:page_index', {
+    when('/page/:pageIndex', {
       templateUrl: '../../static/quiz/quiz-view.html',
       controller: 'QuizController'
     }).
@@ -115,17 +115,24 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
         ]
       }
     ];
+    $scope.quiz.numQuestions = 0;
+    for (page in $scope.quiz.pages) {
+      for (question in page.questions) {
+        $scope.quiz.numQuestions += 1;
+      }
+    }
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
+    $scope.quiz.attemptsPerQuestion = [];
     $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
-    $scope.quiz.page_index = $routeParams.page_index;
+    $scope.quiz.pageIndex = $routeParams.pageIndex;
 
     $scope.quiz.newPage = function(page){
       $window.location.assign("/quiz/user/" + oid + "#/page/" + page);
       $scope.quiz.continue = false;
       $scope.quiz.mistake = false;
-      $scope.quiz.page_index = $routeParams.page_index;
+      $scope.quiz.pageIndex = $routeParams.pageIndex;
     }
 
     $scope.quiz.begin = function() {
@@ -133,19 +140,38 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     }
 
     $scope.quiz.validate = function() {
-      var page_solns = $scope.quiz.solutions[$scope.quiz.page_index];
+      var pageSolns = $scope.quiz.solutions[$scope.quiz.pageIndex];
       var i;
-      for (i = 0; i < page_solns.length; i++) {
-        if (page_solns[i] != $scope.quiz.selectedAnswers[i]) {
+      for (i = 0; i < pageSolns.length; i++) {
+        if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
           return;
+        } else {
+          $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
         }
       }
-      if (Number($scope.quiz.page_index) + 1 === $scope.quiz.pages.length) {
+      if (Number($scope.quiz.pageIndex) + 1 === $scope.quiz.pages.length) {
         $window.location.assign("/results");
       } else {
-        $scope.quiz.newPage(Number($scope.quiz.page_index) + 1);
+        $scope.quiz.newPage(Number($scope.quiz.pageIndex) + 1);
       }
+    }
+
+    $scope.quiz.numCorrect = function() {
+      var singleAttempts = 0;
+      for (var page in $scope.quiz.attemptsPerQuestion) {
+        for (var questionAttempts in page) {
+          if (questionAttempts == 1) {
+            singleAttempts += 1;
+        }
+      }
+      return singleAttempts;
+    }
+
+    $scope.quiz.pass = function() {
+      var score = $scope.quiz.numCorrect / $scope.quiz.numQuestions;
+      console.log(score);
+      return score > 0.66;
     }
 
     $scope.quiz.finish = function() {

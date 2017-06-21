@@ -1,8 +1,8 @@
-<div ng-if="quiz.pages[quiz.page_index].background">
-  <p><b>{{quiz.pages[quiz.page_index].background}}</b></p>
+<div ng-if="quiz.pages[quiz.pageIndex].background">
+  <p><b>{{quiz.pages[quiz.pageIndex].background}}</b></p>
 </div>
 <div ng-show="quiz.mistake" style= "color: red">Incorrect. Please Try again.</div>
-<div ng-repeat="question in quiz.pages[quiz.page_index].questions">
+<div ng-repeat="question in quiz.pages[quiz.pageIndex].questions">
   <p>{{question.question}}</p>
   <div ng-repeat="answer in question.answers">
     <input type="radio" ng-model="quiz.selectedAnswers[$parent.$index]" value="{{$index}}" ng-click="quiz.continue=true"/> {{answer}}</div>
