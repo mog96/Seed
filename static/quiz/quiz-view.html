@@ -1,3 +1,6 @@
+<div ng-if="quiz.pages[quiz.page_index].background">
+  <p><b>{{quiz.pages[quiz.page_index].background}}</b></p>
+</div>
 <div ng-show="quiz.mistake" style= "color: red">Incorrect. Please Try again</div>
 <div ng-repeat="question in quiz.pages[quiz.page_index].questions">
   <p>{{question.question}}</p>
