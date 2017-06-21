@@ -27,7 +27,7 @@ quizApp.config(['$routeProvider',
 
 quizApp.service("dataModel", function() {
     this.attemptsPerQuestion = [[0], [0], [0, 0], [0, 0]];  // NOTE: Must update if quiz questions changed.
-});
+  });
 
 quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeParams', 'dataModel',
   function ($scope, $window, $interval, $routeParams, dataModel) {
