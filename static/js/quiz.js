@@ -116,8 +116,8 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
       }
     ];
     $scope.quiz.numQuestions = 0;
-    for (page in $scope.quiz.pages) {
-      for (question in page.questions) {
+    for (var page in $scope.quiz.pages) {
+      for (var question in page.questions) {
         $scope.quiz.numQuestions += 1;
       }
     }
@@ -128,7 +128,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     $scope.quiz.mistake = false;
     $scope.quiz.pageIndex = $routeParams.pageIndex;
 
-    $scope.quiz.newPage = function(page){
+    $scope.quiz.newPage = function(page) {
       $window.location.assign("/quiz/user/" + oid + "#/page/" + page);
       $scope.quiz.continue = false;
       $scope.quiz.mistake = false;
