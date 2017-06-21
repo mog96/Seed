@@ -153,10 +153,11 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
         dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
         if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
-          return;
         }
       }
-      $scope.quiz.newPage(Number($scope.quiz.pageIndex) + 1);
+      if (!$scope.quiz.mistake) {
+        $scope.quiz.newPage(Number($scope.quiz.pageIndex) + 1);
+      }
     }
 
     $scope.quiz.numCorrect = function() {
