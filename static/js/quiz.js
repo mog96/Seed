@@ -125,6 +125,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
         $scope.quiz.numQuestions += 1;
       }
     }
+    console.log("ATTEMPTS INIT", $scope.quiz.attemptsPerQuestion);
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
     $scope.quiz.attemptsPerQuestion.fill([]);
     $scope.quiz.selectedAnswers = [];
