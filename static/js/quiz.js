@@ -150,7 +150,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           return;
         } else {
           if ($scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex]) {
-            $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex] += 1;
+            $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
           } else {
             $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex] = [1];
           }
