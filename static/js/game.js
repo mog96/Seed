@@ -104,9 +104,9 @@ gameApp.service("dataModel", function() {
     this.ready = false;
     this.subject_no = 0;
     
-    this.wage = 12;
-    this.finalWage = 12;
-    this.bonus = 4;
+    this.wage = 10;
+    this.finalWage = 10;
+    this.bonus = 10;
 
     this.contract = null;
     this.accept = null;
