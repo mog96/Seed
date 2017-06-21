@@ -172,8 +172,6 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           }
         }
       }
-      console.log("ATTEMPTS", dataModel.attemptsPerQuestion);
-      console.log("SINGLE ATTEMPT COUNT", singleAttempts);
       return singleAttempts;
     }
 
