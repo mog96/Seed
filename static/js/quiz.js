@@ -131,7 +131,11 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     $scope.quiz.pageIndex = $routeParams.pageIndex;
 
     $scope.quiz.newPage = function(page) {
-      $window.location.assign("/quiz/user/" + oid + "#/page/" + page);
+      if (Number(page) === $scope.quiz.pages.length) {
+        $window.location.assign("/quiz/user/" + oid + "#/results");
+      } else {
+        $window.location.assign("/quiz/user/" + oid + "#/page/" + page);  // TODO: '#' necessary?
+      }
       $scope.quiz.continue = false;
       $scope.quiz.mistake = false;
       $scope.quiz.pageIndex = $routeParams.pageIndex;
@@ -156,11 +160,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           }
         }
       }
-      if (Number($scope.quiz.pageIndex) + 1 === $scope.quiz.pages.length) {
-        $window.location.assign("/results");
-      } else {
-        $scope.quiz.newPage(Number($scope.quiz.pageIndex) + 1);
-      }
+      $scope.quiz.newPage(Number($scope.quiz.pageIndex) + 1);
     }
 
     $scope.quiz.numCorrect = function() {
