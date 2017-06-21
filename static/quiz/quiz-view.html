@@ -2,7 +2,6 @@
 <div ng-repeat="question in quiz.pages[{{page_index}}].questions">
   <p>{{question.question}}</p>
   <div ng-repeat="answer in question.answers">
-    <input type="radio" ng-model="quiz.selectedAnswer" value="{{$index}}" ng-click="quiz.continue=true"/> {{answer}}</div>
+    <input type="radio" ng-model="quiz.selectedAnswers[$parent.$index]" value="{{$index}}" ng-click="quiz.continue=true"/> {{answer}}</div>
 </div>
-
 <input ng-show="quiz.continue" type="submit" value="OK" class="button" ng-click="quiz.validate()"/>

@@ -25,12 +25,8 @@ quizApp.config(['$routeProvider',
     });
   }]);
 
-quizApp.service("dataModel", function() {
-  this.correct = 0;
-})
-
-quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interval',
-  function ($scope, $window, dataModel, $interval) {
+quizApp.controller('QuizController', ['$scope', '$window', '$interval',
+  function ($scope, $window, $interval) {
     $scope.quiz = {};
     $scope.quiz.pages = [
       // Page 1
@@ -120,7 +116,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
       }
     ];
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
-    $scope.quiz.selectedAnswer = 0;
+    $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
 
@@ -137,25 +133,12 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
     $scope.quiz.validate = function() {
       var page_solns = $scope.quiz.solutions[$scope.page_index];
       for (i = 0; i < page_solns.length; i++) {
-        
-      }
-      if ($scope.quiz.solutions[$scope.page_index] === $scope.quiz.entered) {
-        if (!$scope.quiz.mistake) {
-          dataModel.correct++;
+        if (page_solns[i] != $scope.quiz.selectedAnswers[i]) {
+          $scope.quiz.mistake = true;
+          return;
         }
-        $scope.quiz.newPage(question + 1);
       }
-      else {
-        $scope.quiz.mistake = true;    
-      }
-    }
-
-    $scope.quiz.numCorrect = function() {
-      return dataModel.correct;
-    }
-
-    $scope.quiz.pass = function() {
-      return dataModel.correct >= 2;
+      $scope.quiz.newPage(question + 1);
     }
 
     $scope.quiz.finish = function() {
