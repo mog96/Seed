@@ -172,11 +172,12 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           }
         }
       }
+      console.log("SINGLE ATTEMPTS", singleAttempts);
       return singleAttempts;
     }
 
     $scope.quiz.pass = function() {
-      var score = $scope.quiz.numCorrect / $scope.quiz.numQuestions;
+      var score = Number($scope.quiz.numCorrect) / Number($scope.quiz.numQuestions);
       console.log(score);
       return score > 0.66;
     }
