@@ -33,7 +33,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
   function ($scope, $window, dataModel, $interval) {
     $scope.quiz = {};
     $scope.quiz.pages = [
-      // Question 1
+      // Page 1
       {
         "questions": [
           {
@@ -49,7 +49,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
           }
         ]
       },
-      // Question 2
+      // Page 2
       {
         "questions": [
           {
@@ -62,7 +62,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
           }
         ]
       },
-      // Question 3
+      // Page 3
       {
         "background": "Suppose the employer offers a contract of 20 points. The worker accepts and chooses low effort.",
         "questions": [
@@ -90,7 +90,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
           }
         ]
       },
-      // Question 4
+      // Page 4
       {
         "background": "Suppose the employer offers a contract of 10 points. The worker accepts and chooses high effort.",
         "questions": [
@@ -119,7 +119,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
         ]
       }
     ];
-    $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by question number.
+    $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
 
