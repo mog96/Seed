@@ -150,9 +150,12 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
       $scope.quiz.mistake = false;
       var pageSolns = $scope.quiz.solutions[$scope.quiz.pageIndex];
       for (var i = 0; i < pageSolns.length; i++) {
-        dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
+        if (dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] < 1) {
+          dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] = 1;
+        }
         if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
+          dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
         }
       }
       if (!$scope.quiz.mistake) {
