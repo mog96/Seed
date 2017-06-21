@@ -119,11 +119,13 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
+    $scope.quiz.page_index = $routeParams.page_index;
 
     $scope.quiz.newPage = function(page){
       $window.location.assign("/quiz/user/" + oid + "#/page/" + page);
       $scope.quiz.continue = false;
       $scope.quiz.mistake = false;
+      $scope.quiz.page_index = $routeParams.page_index;
     }
 
     $scope.quiz.begin = function() {

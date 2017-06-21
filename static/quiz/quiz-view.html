@@ -1,5 +1,5 @@
 <div ng-show="quiz.mistake" style= "color: red">Incorrect. Please Try again</div>
-<div ng-repeat="question in quiz.pages[page_index].questions">
+<div ng-repeat="question in quiz.pages[quiz.page_index].questions">
   <p>{{question.question}}</p>
   <div ng-repeat="answer in question.answers">
     <input type="radio" ng-model="quiz.selectedAnswers[$parent.$index]" value="{{$index}}" ng-click="quiz.continue=true"/> {{answer}}</div>
