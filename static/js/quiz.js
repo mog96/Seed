@@ -163,6 +163,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
         for (var questionAttempts in page) {
           if (questionAttempts == 1) {
             singleAttempts += 1;
+          }
         }
       }
       return singleAttempts;
