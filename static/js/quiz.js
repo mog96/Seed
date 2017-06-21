@@ -141,10 +141,10 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           return;
         }
       }
-      if ($scope.page_index === $scope.quiz.pages.length) {
+      if ($scope.quiz.page_index === $scope.quiz.pages.length) {
         $window.location.assign("/results");
       } else {
-        $scope.quiz.newPage($scope.page_index + 1);
+        $scope.quiz.newPage($scope.quiz.page_index + 1);
       }
     }
 
