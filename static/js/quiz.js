@@ -148,6 +148,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
       var i;
       for (i = 0; i < pageSolns.length; i++) {
         $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
+        console.log("UPDATED", $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i]);
         if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
           return;
