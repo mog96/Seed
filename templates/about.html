@@ -14,75 +14,47 @@
 
 </head>
 <body ng-cloak>
-<!--
-	<div class="headerwarning" id="headerbar">
-		<div id="periodcounter"></div>
-		<div ng-if="!main.timeUp" id="timecounter" style="display: block;">You have {{!main.counter}} seconds left.</div>
-		<div ng-if="main.timeUp" id="timecounter" style="display: block;">Time is up! Please finish.</div>
-
-		<div id="balance">
-			<a href="" onclick="reloadpage()" id="reloadlink" style="display: none;">R</a> &nbsp; &nbsp; 
-			<span style="font-weight: normal;">LabBox</span> &nbsp; &nbsp; 
-		</div>
-	</div>
-
-	<div class="bar" id="headerwaitbar" style="width: 100%">
-		<div class="barcontents" style="width: 0px; display: none;" id="countdownbar"></div>
-	</div>
-	-->
-
 <div id="screenarea_outer">
 <div id="screenarea_middle">
-
 <div class="screen" data-role="content">
-
-<h2>About this study</h2>
-<p>Thank you for your interest!</p>
-
-<p>We will present you with different choices. Your choices and those of other participants determine how much you earn.</p>
-<p>In this experiment, we will assign you the role of either a <b>worker</b> or an <b>employer</b>. Another participant will be given the other role.</p>
-<p>The experiment is divided into games. Each game lasts for 10 periods.</p>
-<p>For the duration of a game, each employer is matched to one worker at random, and each worker is matched to one employer at random. During the 10 periods of the game you will have the <b>same role: worker or employer</b>.</p>
-<p>You will play multiple games of 10 periods. In each of these games you can earn points. At the end, the computer randomly picks one game. For this game, we will pay you the sum of what you earned over the 10 periods. 100 points are worth $1.</p>
-<p> Within each period, there are four stages:
+<h2>Instructions and quiz for understanding (in game)</h2>
+<p>Please read the following:</p>
+<ul>
+	<li>We will present you with different choices. Your choices and those of other participants determine how much you earn.</li>
+	<li>In this experiment, we will assign you the role of either a <b>worker</b> or an <b>employer</b>. Another participant will be given the other role.</li>
+	<li>For the duration of a game, each employer is matched to one worker at random, and each worker is matched to one employer at random. After one game you will be matched with a different worker or employer.</li>
+	<li>You will play multiple games, in each of these games you can earn points. At the end, the computer randomly picks two games. For these games we will pay you what you earned.</li>
+	<li>100 points correspond to $4.00.</li>
+</ul>
+<p>The game consists of five stages:</p>
 <ol>
-	<li>The employer offers a contract to the worker. The contract specifies a wage <b>W</b> and an effort level <b>E</b>. Sometimes the wage <b>W</b> depends on effort <b>E</b>. </li>
-	<li>The worker chooses to <b>accept</b> or <b>reject</b> this contract. </li>
-	<li>If the worker has accepted the contract, the worker chooses high or low effort.</li>
-	<li>If the worker has accepted the contract, the employer <p>pays the worker</p> according to the contract. </li>
+	<li>As an employer, you are given 20 points. As a worker you are given 10 points.</li>
+	<li>The employer offers an <b>employment contract</b> to the worker, paying a <b>wage</b> of 10 or 20 points and <b>asking for an effort level</b> (high or low). Sometimes the wage depends on the effort level.</li>
+	<li>The worker chooses to <b>accept</b> or <b>reject</b> this offer. If the worker rejects, no wage is paid, but the worker receives 10 points (in addition to the 10 points the worker earned before).</li>
+	<li>If the worker accepted the contract, the worker chooses <b>high or low effort</b>.</li>
+	<li>The worker gets paid by the employer, but will need to incur the cost of effort. The employer receives a benefit for effort.</li>
+	<ol type="a">
+		<li>The worker incurs a cost of <b>5 points</b> for high effort. Low effort is costless.</li>
+		<li>The employer gets <b>40 points</b> for high effort and <b>10 points</b> for low effort.</li>
+	</ol>
 </ol>
-</p>
-<p> The earnings of the worker and the employer:
+<p>So the employer’s earnings are:</p>
 <ul>
-	<li> If the worker <b>rejects</b> the offer, both get <b>zero points</b>.</li>
-	<li> If the worker <b>accepts</b> the contract, the earnings depend on the worker's effort:
-	<ul>
-	  <li>The employer gets <b>X points</b> for <b>high effort</b> and <b>Y points</b> for <b>low effort</b>. The employer also pays a wage of <b>W</b> points to the worker as specified by the contract.</li>
-	  <li>The cost to theworker payoff exerting efforts is <b>Z points</b> for <b>high effort</b> and <b>0 points</b> for <b>low effort</b>. The worker also receives a wage payment of <b>W</b> points from the employer as specified by the contract.</li>
-	</ul>
+	<li>if the contract is rejected: 20 points</li>
+	<li>if the contract is accepted: 20 points <b>minus</b> the wage <b>plus</b> the benefit from effort</li>
 </ul>
-</p>
-<p> So the earnings each period are: 
+<p>And the worker’s earnings are:</p>
 <ul>
-	<li>For the employer: the benefit from effort minus the wage.</li>	
-	<li>For the worker: the wage minus the cost of effort.</li>
+	<li>if the contract is rejected: 20 points</li>
+	<li>if the contract is accepted: 10 points <b>plus</b> the wage <b>minus</b> the cost of effort.</li>
 </ul>
-</p>
-<p> An example: 
+<p><b>An example:</b> suppose the employer offers a wage of 10 points, and the worker accepts and chooses low effort.</p>
 <ul>
-	<li>Suppose the employer offers a wage of 20 points.</li>
-	<li>The worker accepts this offer and chooses low effort.</li>
-	<li>The employer now earns: X points – 20 points = X-20 points. </li>
-	<li>The worker now earns: 20 points – 0 points = 20 points. </li>
+	<li>The employer earns: 20 points minus the wage of 10 points plus 10 points for the benefit of low effort. This equals 20 – 10 + 10 = 20 points.</li>
+	<li>The worker earns: 10 points plus the wage of 10 points minus 0 points for the cost of low effort. This equals 10 + 10 – 0 = 20 points.</li>
 </ul>
-</p>
-
-
-
-<p>&nbsp;</p> 
- 
-
-      <p>Please press <b>Continue</b> to answer a quiz.</p><p></p>
+<p>&nbsp;</p>
+      <p>Please press <b>Continue</b> to complete the quiz.</p><p></p>
 		
 	  <!--form action="/quiz/user/{{oid}}" method="post"-->
       <form action="/welcome" method="get">
@@ -92,11 +64,8 @@
       <input type="submit" value="Continue" class="button">
       </form>
 <hr>
-
 </div>
 </div>
 </div>
-
-
 </body>
 </html>
