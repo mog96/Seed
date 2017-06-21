@@ -123,9 +123,8 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
         $scope.quiz.numQuestions += 1;
       }
     }
-    console.log($scope.quiz.numQuestions);
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
-    $scope.quiz.attemptsPerQuestion = {};
+    $scope.quiz.attemptsPerQuestion = [];
     $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
@@ -150,7 +149,11 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           $scope.quiz.mistake = true;
           return;
         } else {
-          $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
+          if ($scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex]) {
+            $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex] += 1;
+          } else {
+            $scope.quiz.attemptsPerQuestion[$scope.quiz.pageIndex] = [1];
+          }
         }
       }
       if (Number($scope.quiz.pageIndex) + 1 === $scope.quiz.pages.length) {
