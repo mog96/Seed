@@ -147,9 +147,9 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     }
 
     $scope.quiz.validate = function() {
+      $scope.quiz.mistake = false;
       var pageSolns = $scope.quiz.solutions[$scope.quiz.pageIndex];
-      var i;
-      for (i = 0; i < pageSolns.length; i++) {
+      for (var i = 0; i < pageSolns.length; i++) {
         dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
         if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
