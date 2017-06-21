@@ -120,10 +120,10 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     var i;
     for (i = 0; i < $scope.quiz.pages.length; i++) {
       var j;
-      $scope.quiz.attemptsPerQuestion.push([]);
+      $scope.quiz.attemptsPerQuestion[i] = [];
       for (j = 0; j < $scope.quiz.pages[i].questions.length; j++) {
         $scope.quiz.numQuestions += 1;
-        $scope.quiz.attemptsPerQuestion[j].push(0);
+        $scope.quiz.attemptsPerQuestion[i][j].push(0);
       }
     }
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
