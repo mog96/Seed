@@ -25,8 +25,8 @@ quizApp.config(['$routeProvider',
     });
   }]);
 
-quizApp.controller('QuizController', ['$scope', '$window', '$interval',
-  function ($scope, $window, $interval) {
+quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeParams',
+  function ($scope, $window, $interval, $routeParams) {
     $scope.quiz = {};
     $scope.quiz.pages = [
       // Page 1
