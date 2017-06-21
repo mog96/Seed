@@ -171,9 +171,9 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     }
 
     $scope.quiz.pass = function() {
-      console.log("SINGLE ATTEMPTS", $scope.quiz.numCorrect);
+      console.log("SINGLE ATTEMPTS", $scope.quiz.numCorrect());
       console.log("NUM QUESTIONS", $scope.quiz.numQuestions);
-      var score = Number($scope.quiz.numCorrect) / Number($scope.quiz.numQuestions);
+      var score = Number($scope.quiz.numCorrect()) / Number($scope.quiz.numQuestions);
       console.log("SCORE", score);
       return score > 0.66;
     }
