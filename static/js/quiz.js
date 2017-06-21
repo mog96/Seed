@@ -119,7 +119,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     var i;
     for (i = 0; i < $scope.quiz.pages.length; i++) {
       var j;
-      for (j = 0; j < $scope.quiz.pages.questions.length; j++) {
+      for (j = 0; j < $scope.quiz.pages[i].questions.length; j++) {
         $scope.quiz.numQuestions += 1;
       }
     }
