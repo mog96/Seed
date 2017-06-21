@@ -3,7 +3,7 @@
 var quizApp = angular.module('quizApp', ['ngRoute']);
 
 var url = window.location.href;
-var oid = url.substring(url.length - 24, url.length);
+var oid = url.substring(url.length - 24, url.length); // FIXME
 
 quizApp.config(['$routeProvider',
     function ($routeProvider) {
@@ -40,13 +40,13 @@ quizApp.service("dataModel", function() {
 quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interval',
     function ($scope, $window, dataModel, $interval) {
         $scope.quiz = {};
-        $scope.quiz.answers = ['Paris', 'Berlin', 'London'];
+        $scope.quiz.answers = [5, 2, 1, 4, 5, 2];  // Indices of correct answers, ordered by question number.
         $scope.quiz.inputs = [];
         $scope.quiz.continue = false;
         $scope.quiz.mistake = false;
 
         $scope.quiz.newPage = function(page){
-            $window.location.assign("/quiz/user/" +  oid + "#/" + page);
+            $window.location.assign("/quiz/user/" + oid + "#/" + page);
             $scope.quiz.continue = false;
             $scope.quiz.mistake = false;
 
@@ -106,7 +106,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
         };
 
         $scope.$on('$destroy', function() {
-          // Make sure that the interval is destroyed too
+          // Make sure that the interval is destroyed too.
           $scope.quiz.timerStop();
         });
     }]);
