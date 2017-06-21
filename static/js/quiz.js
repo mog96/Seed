@@ -12,7 +12,7 @@ quizApp.config(['$routeProvider',
       templateUrl: '/static/quiz/start.html',
       controller: 'QuizController'
     }).
-    when('/:index', {
+    when('/page/:page_index', {
       templateUrl: '../../static/quiz/quiz-view.html',
       controller: 'QuizController'
     }).
@@ -120,6 +120,7 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
       }
     ];
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
+    $scope.quiz.selectedAnswer = 0;
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
 
@@ -133,8 +134,12 @@ quizApp.controller('QuizController', ['$scope', '$window', 'dataModel', '$interv
       $scope.quiz.newPage('0');
     }
 
-    $scope.quiz.validate = function(question) {
-      if ($scope.quiz.answers[question] === $scope.quiz.inputs[question]) {
+    $scope.quiz.validate = function() {
+      var page_solns = $scope.quiz.solutions[$scope.page_index];
+      for (i = 0; i < page_solns.length; i++) {
+        
+      }
+      if ($scope.quiz.solutions[$scope.page_index] === $scope.quiz.entered) {
         if (!$scope.quiz.mistake) {
           dataModel.correct++;
         }
