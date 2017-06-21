@@ -125,7 +125,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     }
     console.log($scope.quiz.numQuestions);
     $scope.quiz.solutions = [[5], [2], [1, 4], [5, 2]];  // Indices of correct answers, ordered by quiz page/question number.
-    $scope.quiz.attemptsPerQuestion = [];
+    $scope.quiz.attemptsPerQuestion = {};
     $scope.quiz.selectedAnswers = [];
     $scope.quiz.continue = false;
     $scope.quiz.mistake = false;
@@ -186,7 +186,7 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
     $scope.quiz.counter = 30;
 
     var stop;
-    $scope.quiz.countdown = function(){
+    $scope.quiz.countdown = function() {
       if ( angular.isDefined(stop) ) return;
 
       stop = $interval(function() {
