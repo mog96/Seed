@@ -54,15 +54,14 @@
 	<li>The worker earns: 10 points plus the wage of 10 points minus 0 points for the cost of low effort. This equals 10 + 10 – 0 = 20 points.</li>
 </ul>
 <p>&nbsp;</p>
-      <p>Please press <b>Continue</b> to complete the quiz.</p><p></p>
-		
-	  <!--form action="/quiz/user/{{oid}}" method="post"-->
-      <form action="/welcome" method="get">
-      <input type="hidden" name ="oid" value="{{oid}}">
-      <input type="hidden" name ="rd" value="1">
+<p>Please press <b>Continue</b> to complete the quiz.</p><p></p>
+<form action="/quiz/user/{{oid}}" method="post">
+<!-- <form action="/welcome" method="get"> -->
+<input type="hidden" name ="oid" value="{{oid}}">
+<input type="hidden" name ="rd" value="1">
 
-      <input type="submit" value="Continue" class="button">
-      </form>
+<input type="submit" value="Continue" class="button">
+</form>
 <hr>
 </div>
 </div>
