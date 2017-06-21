@@ -25,9 +25,8 @@ quizApp.config(['$routeProvider',
     });
   }]);
 
-// NOTE: Must update if quiz questions changed.
 quizApp.service("dataModel", function() {
-    this.attemptsPerQuestion = [[0], [0], [0, 0], [0, 0]];
+    this.attemptsPerQuestion = [[0], [0], [0, 0], [0, 0]];  // NOTE: Must update if quiz questions changed.
 });
 
 quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeParams', 'dataModel',
@@ -152,7 +151,6 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
       var i;
       for (i = 0; i < pageSolns.length; i++) {
         dataModel.attemptsPerQuestion[$scope.quiz.pageIndex][i] += 1;
-        console.log("UPDATED", dataModel.attemptsPerQuestion[$scope.quiz.pageIndex]);
         if (pageSolns[i] != $scope.quiz.selectedAnswers[i]) {
           $scope.quiz.mistake = true;
           return;
@@ -170,16 +168,11 @@ quizApp.controller('QuizController', ['$scope', '$window', '$interval', '$routeP
           }
         }
       }
-      console.log("ATTEMPTS", dataModel.attemptsPerQuestion);
-      console.log("SINGLE ATTEMPT COUNT", singleAttempts);
       return singleAttempts;
     }
 
     $scope.quiz.pass = function() {
-      console.log("SINGLE ATTEMPTS", $scope.quiz.numCorrect());
-      console.log("NUM QUESTIONS", $scope.quiz.numQuestions);
       var score = Number($scope.quiz.numCorrect()) / Number($scope.quiz.numQuestions);
-      console.log("SCORE", score);
       return score > 0.66;
     }
 
