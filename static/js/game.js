@@ -262,7 +262,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
             if (dataModel.stage === "init") {
                 dataModel.oid = oid;
                 //HERE IS WHERE WAGE IS DECIDED - constants
-                dataModel.wage = dataModel.lowBase ? 12 : 16;
+                dataModel.wage = dataModel.lowBase ? 10 : 20;
                 dataModel.finalWage = dataModel.wage;
                 page = employer ? '2' : 'wait';
                 dataModel.wait = !employer;
@@ -370,7 +370,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 dataModel.contract = msg.contract;
                 dataModel.varWage = msg.varWage;
                 dataModel.offerMade = msg.offerMade;
-                dataModel.wage = dataModel.lowBase ? 12 : 16;
+                dataModel.wage = dataModel.lowBase ? 10 : 20;
                 dataModel.stage = "contract";
                 console.log("contract made");
                 var employer = dataModel.role == "employer";
@@ -380,7 +380,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 }
                 else {
                     dataModel.oid = oid;
-                    dataModel.wage = dataModel.lowBase ? 12 : 16;
+                    dataModel.wage = dataModel.lowBase ? 10 : 20;
                     dataModel.finalWage = dataModel.wage;
                 }
             }

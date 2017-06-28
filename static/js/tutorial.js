@@ -54,9 +54,9 @@ tutorialApp.service("dataModel", function() {
   this.offerMade = true;
   this.reaction = false;
   
-  this.wage = 12;
-  this.finalWage = 12;
-  this.bonus = 4;
+  this.wage = 10;
+  this.finalWage = 10;
+  this.bonus = 10;
 
   this.contract = null;
   this.accept = true;
@@ -195,7 +195,7 @@ tutorialApp.controller('TutorialController', ['$scope', '$window', 'dataModel', 
       
 
       if (dataModel.stage === "init") {
-        dataModel.wage = dataModel.lowBase ? 12 : 16;
+        dataModel.wage = dataModel.lowBase ? 10 : 20;
         dataModel.finalWage = dataModel.wage;
         page = employer ? '2' : 'wait';
         dataModel.stage = "effort";
