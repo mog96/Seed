@@ -7,7 +7,7 @@
 		<p>Employee {{game.getAccept()}}ed the offer.</p>
 		<p ng-if="game.getAcceptVal()">Employee exerted <b>{{game.getEffort()}}</b> effort.</p>
 		<p ng-if="game.getReactionVal()">Employer decided to {{game.getAction()}} the employee.</p>
-		<p> Employee earned <b>{{game.getFinalWage()}}</b> dollars</p>
+		<p> Employee earned <b>{{game.getFinalWage()}}</b> points</p>
 		</span>
 		<p ng-if="!game.getOfferMade()"> No offer made</p>
 		<p><input name="submit" type="button" value="OK" ng-click="game.finishGame()" class="button"></p>
