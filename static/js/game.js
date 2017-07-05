@@ -261,7 +261,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
             var page = "";
             if (dataModel.stage === "init") {
                 dataModel.oid = oid;
-                //HERE IS WHERE WAGE IS DECIDED - constants
+                // NOTE: HERE IS WHERE WAGE IS DECIDED - constants
                 dataModel.wage = dataModel.lowBase ? 10 : 20;
                 dataModel.finalWage = dataModel.wage;
                 page = employer ? '2' : 'wait';
@@ -294,7 +294,18 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 dataModel.wait = false;
                 dataModel.stage = "finish";
                 //payment calculation
-                var payment = employer ? 40 - dataModel.wage : dataModel.wage;
+                var payment = 0;
+                var employerHighEffortBenefit = 40;
+                var employerLowEffortBenefit = 10;
+
+                // TODO: START HERE
+                // - Will need to re-evaluate what is kept in dataModel to ensure correct payment calculation.
+
+                if (dataModel.role == "employer") {
+                    // payment =
+                } else {
+                    // payment = 
+                }
                 conn.send(JSON.stringify({"type": FINISH_MSG,
                                         "oid": oid,
                                         "role": dataModel.role, 
