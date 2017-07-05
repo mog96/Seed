@@ -92,7 +92,8 @@ class WelcomeHandler(BaseHandler):
 class PaymentHandler(BaseHandler):
     def get(self, oid):
         user = db.players.find_one({"_id": ObjectId(self.get_argument("oid"))})
-        self.render("payment.html", title="Oxford Experiments", oid = self.get_argument("oid"), payment = 5, user = user)
+        payment = user["payment"]
+        self.render("payment.html", title="Oxford Experiments", oid = self.get_argument("oid"), payment = payment, user = user)
 
 class GameHandler(BaseHandler):
     def post(self, oid):
