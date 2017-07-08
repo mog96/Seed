@@ -351,18 +351,17 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
 
                 let payment = wage * (4 / 100);   // 100 points corrseponds to $4.00
 
-                // TODO: FIND WHERE SENT TO DB
-
+                // Send game data back to server to be stored in DB.
                 conn.send(JSON.stringify({"type": FINISH_MSG,
-                                        "oid": oid,
-                                        "role": dataModel.role, 
-                                        "wage": wage,
-                                        "contract": dataModel.contract, 
-                                        "accept": dataModel.accept, 
-                                        "effortLevel": dataModel.accept ? dataModel.effortLevel : 'None', 
-                                        "action": dataModel.action, 
-                                        "payment": payment,
-                                        "game_id": dataModel.game_id}));
+                                          "oid": oid,
+                                          "role": dataModel.role, 
+                                          "contract": dataModel.contract, 
+                                          "accept": dataModel.accept, 
+                                          "effortLevel": dataModel.accept ? dataModel.effortLevel : 'None', 
+                                          "action": dataModel.action,
+                                          "wage": wage,
+                                          "payment": payment,
+                                          "game_id": dataModel.game_id}));
             }
 
             $scope.game.newPage(page);

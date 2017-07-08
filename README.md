@@ -36,7 +36,9 @@ Control the tutorial. Currently pretty messy, as they are mostly copied from gam
 See session.js — nearly identical.
 
 ### game.js
-A lot going on here. Opens a GameConnection WebSocket. Most data saved in dataModel rather than $scope as it persists through the loading of a new page. General data flow:
+A lot going on here. Opens a GameConnection WebSocket. Most data saved in dataModel rather than $scope as it persists through the loading of a new page.
+
+General data flow:
 -	Client submits a decision.
 -	Function “sendEffortLevel” (or sendContract, sendAccept, etc) sends decision to server.
 -	Message bounces back to both parties in connection.

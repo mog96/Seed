@@ -744,17 +744,17 @@ class GameConnection(SockJSConnection):
                 game_id = msg['game_id']
                 logger.debug('[GameConnection] Entering info for subject %s into db',  msg['oid'])
 
-                #After game, all parameters are handled - put into database 
-                db.players.update_one({'_id': ObjectId(msg['oid'])},{'$set': {
-                    "status": "finished",
-                    "role": msg['role'],
-                    "payment": msg['payment'],
-                    "wage": msg['wage'],
-                    "accept": msg['accept'],
+                # Store game data in DB.
+                db.players.update_one({ '_id': ObjectId(msg['oid']) }, { '$set': {
+                    "status":      "finished",
+                    "role":        msg['role'],
+                    "contract":    msg['contract'],
+                    "accept":      msg['accept'],
                     "effortLevel": msg['effortLevel'],
                     # Action denotes whether employer rewards or penalizes employee
-                    "action": msg['action'] 
-                    }})
+                    "action":      msg['action'],
+                    "wage":        msg['wage'],
+                    "payment":     msg['payment'] } })
 
                 GameConnection.PARTICIPANTS[self.rd][game_id] = set();
 
