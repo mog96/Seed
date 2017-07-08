@@ -320,30 +320,49 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 page = '5';
                 dataModel.wait = false;
                 dataModel.stage = "finish";
-                //payment calculation
-                var payment = 0;
+                
+                // Payment calculation.
+                let employerInitialPoints = 20
                 let employerHighEffortBenefit = 40;
                 let employerLowEffortBenefit = 10;
+                let workerIntialPoints = 10
+                let workerHighEffortCost = 5;
+                let workerOfferRejectedPoints = 10
 
-                // TODO: START HERE
-                // - Will need to re-evaluate what is kept in dataModel to ensure correct payment calculation.
+                var wage = 0;
+
+                // TODO: CONFIRM IS VALID
 
                 if (isEmployer) {
-                    // payment = 
+                    if (dataModel.accept) {
+                        wage = employerInitialPoints - dataModel.wage
+                             + (dataModel.effortLevel === 'High' ? employerHighEffortBenefit : employerLowEffortBenefit);
+                    } else {
+                        wage = employerInitialPoints;
+                    }
                 } else {
-                    // payment = 
+                    if (dataModel.accept) {
+                        wage = workerIntialPoints + dataModel.wage
+                             - (dataModel.effortLevel === 'High' ? workerHighEffortCost : 0);
+                    } else {
+                        wage = workerIntialPoints + workerOfferRejectedPoints;
+                    }
                 }
+
+                let payment = wage * (4 / 100);   // 100 points corrseponds to $4.00
+
+                // TODO: FIND WHERE SENT TO DB
+
                 conn.send(JSON.stringify({"type": FINISH_MSG,
                                         "oid": oid,
                                         "role": dataModel.role, 
-                                        "wage": dataModel.wage,
+                                        "wage": wage,
                                         "contract": dataModel.contract, 
                                         "accept": dataModel.accept, 
                                         "effortLevel": dataModel.accept ? dataModel.effortLevel : 'None', 
                                         "action": dataModel.action, 
                                         "payment": payment,
                                         "game_id": dataModel.game_id}));
-
             }
 
             $scope.game.newPage(page);
