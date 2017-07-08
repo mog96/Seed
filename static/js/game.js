@@ -251,6 +251,31 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
             return dataModel.round;
         }
 
+        $scope.game.sendContract = function() {
+            if (dataModel.contract === 'none') {dataModel.offerMade = false;}
+            else if (dataModel.contract) {dataModel.varWage = false;}
+            else if (!dataModel.varWage) {dataModel.offerMade = false;}
+
+            conn.send(JSON.stringify({"type": CONTRACT_MSG, "game_id": dataModel.game_id, "contract": dataModel.contract, "varWage": dataModel.varWage, "offerMade": dataModel.offerMade}))
+        }
+
+        $scope.game.sendAccept = function() {
+            dataModel.stage = "accept";
+            if (!dataModel.accept) {
+                dataModel.finalWage = 0;
+                conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.accept,"effortLevel": dataModel.effortLevel}))
+            }
+            $scope.game.nextPage();
+        }
+
+        $scope.game.sendEffortLevel = function() {
+            conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.accept,"effortLevel": dataModel.effortLevel}))
+        }
+
+        $scope.game.sendAction = function() {
+            conn.send(JSON.stringify({"type": ACTION_MSG, "game_id": dataModel.game_id, "action": dataModel.action}));
+        }
+
         $scope.game.nextPage = function() {
             var isEmployer = dataModel.role == "employer";
 
@@ -291,14 +316,14 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
 
                 dataModel.stage = "action";
             }
-            else {
+            else /* if (dataModel.stage === "action" */ {
                 page = '5';
                 dataModel.wait = false;
                 dataModel.stage = "finish";
                 //payment calculation
                 var payment = 0;
-                var employerHighEffortBenefit = 40;
-                var employerLowEffortBenefit = 10;
+                let employerHighEffortBenefit = 40;
+                let employerLowEffortBenefit = 10;
 
                 // TODO: START HERE
                 // - Will need to re-evaluate what is kept in dataModel to ensure correct payment calculation.
@@ -323,32 +348,6 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
 
             $scope.game.newPage(page);
         }
-
-        $scope.game.sendContract = function() {
-            if (dataModel.contract === 'none') {dataModel.offerMade = false;}
-            else if (dataModel.contract) {dataModel.varWage = false;}
-            else if (!dataModel.varWage) {dataModel.offerMade = false;}
-
-            conn.send(JSON.stringify({"type": CONTRACT_MSG, "game_id": dataModel.game_id, "contract": dataModel.contract, "varWage": dataModel.varWage, "offerMade": dataModel.offerMade}))
-        }
-
-        $scope.game.sendAccept = function() {
-            dataModel.stage = "accept";
-            if (!dataModel.accept) {
-                dataModel.finalWage = 0;
-                conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.accept,"effortLevel": dataModel.effortLevel}))
-            }
-            $scope.game.nextPage();
-        }
-
-        $scope.game.sendEffortLevel = function() {
-            conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.accept,"effortLevel": dataModel.effortLevel}))
-        }
-
-        $scope.game.sendAction = function() {
-            conn.send(JSON.stringify({"type": ACTION_MSG, "game_id": dataModel.game_id, "action": dataModel.action}));
-        }
-
  
         conn.onmessage = function(e) {
             var msg = JSON.parse(e.data);
