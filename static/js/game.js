@@ -377,6 +377,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 console.log($scope.game.continue);
                 $scope.game.setWait(false);
             }
+            // Determine contract offered by employer.
             else if (type == CONTRACT_MSG) {
                 dataModel.contract = msg.contract;
                 dataModel.varWage = msg.varWage;
@@ -395,6 +396,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                     dataModel.finalWage = dataModel.wage;
                 }
             }
+            // Determine whether worker accepted contract.
             else if (type == EFFORT_MSG) {
                 var acceptStr = msg.accept ? "accept" : "reject";
                 dataModel.accept = msg.accept;
@@ -403,6 +405,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 dataModel.effortLevel = msg.effortLevel;
                 $scope.game.nextPage();
             }
+            // Determine whether employer decided to reward worker.
             else if (type == ACTION_MSG) {
                 dataModel.action = msg.action;
                 if (dataModel.action === "reward")
