@@ -752,9 +752,9 @@ class GameConnection(SockJSConnection):
                     "wage": msg['wage'],
                     "accept": msg['accept'],
                     "effortLevel": msg['effortLevel'],
+                    # Action denotes whether employer rewards or penalizes employee
                     "action": msg['action'] 
                     }})
-                # Action denotes whether employer rewards or penalizes employee
 
                 GameConnection.PARTICIPANTS[self.rd][game_id] = set();
 

@@ -252,7 +252,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
         }
 
         $scope.game.nextPage = function() {
-            var employer = dataModel.role == "employer";
+            var isEmployer = dataModel.role == "employer";
 
             $scope.game.continue = false;
             dataModel.counter = 21;
@@ -264,28 +264,28 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 // NOTE: HERE IS WHERE WAGE IS DECIDED - constants
                 dataModel.wage = dataModel.lowBase ? 10 : 20;
                 dataModel.finalWage = dataModel.wage;
-                page = employer ? '2' : 'wait';
-                dataModel.wait = !employer;
+                page = isEmployer ? '2' : 'wait';
+                dataModel.wait = !isEmployer;
                 dataModel.fastemployer = false;
 
                 dataModel.stage = "contract";
             }
             else if (dataModel.stage === "contract" && dataModel.offerMade) {
-                page = employer ? 'wait' : '3';
-                dataModel.wait = employer;
+                page = isEmployer ? 'wait' : '3';
+                dataModel.wait = isEmployer;
 
                 dataModel.stage = "effort";
             }
             else if (dataModel.stage === "accept" && dataModel.accept) {
-                page = employer ? 'wait' : '3b';
-                dataModel.wait = employer;
+                page = isEmployer ? 'wait' : '3b';
+                dataModel.wait = isEmployer;
 
                 dataModel.stage = "effort";
             }
             else if (dataModel.stage === "effort" && dataModel.varWage && dataModel.offerMade && dataModel.accept && ((dataModel.lowBase && dataModel.effortLevel === 'High') || (!dataModel.lowBase && dataModel.effortLevel === 'Low'))) {
                 dataModel.reaction = true;
-                page = employer ? '4' : 'wait';
-                dataModel.wait = !employer;
+                page = isEmployer ? '4' : 'wait';
+                dataModel.wait = !isEmployer;
 
                 dataModel.stage = "action";
             }
@@ -301,8 +301,8 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 // TODO: START HERE
                 // - Will need to re-evaluate what is kept in dataModel to ensure correct payment calculation.
 
-                if (dataModel.role == "employer") {
-                    // payment =
+                if (isEmployer) {
+                    // payment = 
                 } else {
                     // payment = 
                 }
