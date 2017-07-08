@@ -280,6 +280,8 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 page = isEmployer ? 'wait' : '3b';
                 dataModel.wait = isEmployer;
 
+                // TODO: Determine employer wage here?
+
                 dataModel.stage = "effort";
             }
             else if (dataModel.stage === "effort" && dataModel.varWage && dataModel.offerMade && dataModel.accept && ((dataModel.lowBase && dataModel.effortLevel === 'High') || (!dataModel.lowBase && dataModel.effortLevel === 'Low'))) {
