@@ -109,9 +109,9 @@ gameApp.service("dataModel", function() {
     this.bonus = 10;
 
     this.contract = null;
-    this.accept = null;
+    this.contractAccepted = null;
     this.effortLevel = '';
-    this.action = '';
+    this.employerPostWorkDecision = '';
 
     this.counting = false;
     this.counter = 20;
@@ -169,7 +169,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
         $scope.game.setAccept = function(response) {
             $scope.game.continue = true;
 
-            dataModel.accept = response;
+            dataModel.contractAccepted = response;
         }
 
         $scope.game.setEffort = function(level) {
@@ -181,7 +181,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
         $scope.game.setAction = function(act) {
             $scope.game.continue = true;
 
-            dataModel.action = act;
+            dataModel.employerPostWorkDecision = act;
         }
 
         $scope.game.getLowBase = function() {
@@ -215,16 +215,16 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
         }
 
         $scope.game.getAccept = function() {
-            if(dataModel.accept == null)
+            if(dataModel.contractAccepted == null)
                 return '';
-            else if (dataModel.accept)    
+            else if (dataModel.contractAccepted)    
                 return 'accept';
             else
                 return 'reject';
         }
 
         $scope.game.getAcceptVal = function() {
-            return dataModel.accept;
+            return dataModel.contractAccepted;
         }
 
         $scope.game.getReactionVal = function() {
@@ -236,7 +236,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
         }
 
         $scope.game.getAction = function() {
-            return dataModel.action;
+            return dataModel.employerPostWorkDecision;
         }
 
         $scope.game.getFinalWage = function() {
@@ -261,19 +261,19 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
 
         $scope.game.sendAccept = function() {
             dataModel.stage = "accept";
-            if (!dataModel.accept) {
+            if (!dataModel.contractAccepted) {
                 dataModel.finalWage = 0;
-                conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.accept,"effortLevel": dataModel.effortLevel}))
+                conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.contractAccepted,"effortLevel": dataModel.effortLevel}))
             }
             $scope.game.nextPage();
         }
 
         $scope.game.sendEffortLevel = function() {
-            conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.accept,"effortLevel": dataModel.effortLevel}))
+            conn.send(JSON.stringify({"type": EFFORT_MSG, "game_id": dataModel.game_id, "accept": dataModel.contractAccepted,"effortLevel": dataModel.effortLevel}))
         }
 
         $scope.game.sendAction = function() {
-            conn.send(JSON.stringify({"type": ACTION_MSG, "game_id": dataModel.game_id, "action": dataModel.action}));
+            conn.send(JSON.stringify({"type": ACTION_MSG, "game_id": dataModel.game_id, "action": dataModel.employerPostWorkDecision}));
         }
 
         $scope.game.nextPage = function() {
@@ -301,7 +301,7 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
 
                 dataModel.stage = "effort";
             }
-            else if (dataModel.stage === "accept" && dataModel.accept) {
+            else if (dataModel.stage === "accept" && dataModel.contractAccepted) {
                 page = isEmployer ? 'wait' : '3b';
                 dataModel.wait = isEmployer;
 
@@ -309,14 +309,14 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
 
                 dataModel.stage = "effort";
             }
-            else if (dataModel.stage === "effort" && dataModel.varWage && dataModel.offerMade && dataModel.accept && ((dataModel.lowBase && dataModel.effortLevel === 'High') || (!dataModel.lowBase && dataModel.effortLevel === 'Low'))) {
+            else if (dataModel.stage === "effort" && dataModel.varWage && dataModel.offerMade && dataModel.contractAccepted && ((dataModel.lowBase && dataModel.effortLevel === 'High') || (!dataModel.lowBase && dataModel.effortLevel === 'Low'))) {
                 dataModel.reaction = true;
                 page = isEmployer ? '4' : 'wait';
                 dataModel.wait = !isEmployer;
 
                 dataModel.stage = "action";
             }
-            else /* if (dataModel.stage === "action" */ {
+            else {
                 page = '5';
                 dataModel.wait = false;
                 dataModel.stage = "finish";
@@ -334,14 +334,14 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 // TODO: CONFIRM IS VALID
 
                 if (isEmployer) {
-                    if (dataModel.accept) {
+                    if (dataModel.contractAccepted) {
                         wage = employerInitialPoints - dataModel.wage
                              + (dataModel.effortLevel === 'High' ? employerHighEffortBenefit : employerLowEffortBenefit);
                     } else {
                         wage = employerInitialPoints;
                     }
                 } else {
-                    if (dataModel.accept) {
+                    if (dataModel.contractAccepted) {
                         wage = workerIntialPoints + dataModel.wage
                              - (dataModel.effortLevel === 'High' ? workerHighEffortCost : 0);
                     } else {
@@ -352,16 +352,16 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
                 let payment = wage * (4 / 100);   // 100 points corrseponds to $4.00
 
                 // Send game data back to server to be stored in DB.
-                conn.send(JSON.stringify({"type": FINISH_MSG,
-                                          "oid": oid,
-                                          "role": dataModel.role, 
-                                          "contract": dataModel.contract, 
-                                          "accept": dataModel.accept, 
-                                          "effortLevel": dataModel.accept ? dataModel.effortLevel : 'None', 
-                                          "action": dataModel.action,
-                                          "wage": wage,
-                                          "payment": payment,
-                                          "game_id": dataModel.game_id}));
+                conn.send(JSON.stringify({"type":                     FINISH_MSG,
+                                          "oid":                      oid,
+                                          "role":                     dataModel.role, 
+                                          "contract":                 dataModel.contract, 
+                                          "contractAccepted":         dataModel.contractAccepted, 
+                                          "effortLevel":              dataModel.contractAccepted ? dataModel.effortLevel : 'None', 
+                                          "employerPostWorkDecision": dataModel.employerPostWorkDecision,
+                                          "wage":                     wage,
+                                          "payment":                  payment,
+                                          "game_id":                  dataModel.game_id}));
             }
 
             $scope.game.newPage(page);
@@ -418,18 +418,18 @@ gameApp.controller('GameController', ['$scope', '$window', 'dataModel', '$locati
             // Determine whether worker accepted contract.
             else if (type == EFFORT_MSG) {
                 var acceptStr = msg.accept ? "accept" : "reject";
-                dataModel.accept = msg.accept;
-                if (!dataModel.accept)
+                dataModel.contractAccepted = msg.accept;
+                if (!dataModel.contractAccepted)
                     dataModel.finalWage = 0;
                 dataModel.effortLevel = msg.effortLevel;
                 $scope.game.nextPage();
             }
             // Determine whether employer decided to reward worker.
             else if (type == ACTION_MSG) {
-                dataModel.action = msg.action;
-                if (dataModel.action === "reward")
+                dataModel.employerPostWorkDecision = msg.action;
+                if (dataModel.employerPostWorkDecision === "reward")
                     dataModel.finalWage += dataModel.bonus;
-                if (dataModel.action === "penalize")
+                if (dataModel.employerPostWorkDecision === "penalize")
                     dataModel.finalWage -= dataModel.bonus;
                 $scope.game.nextPage();
             }

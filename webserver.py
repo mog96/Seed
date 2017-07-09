@@ -746,15 +746,14 @@ class GameConnection(SockJSConnection):
 
                 # Store game data in DB.
                 db.players.update_one({ '_id': ObjectId(msg['oid']) }, { '$set': {
-                    "status":      "finished",
-                    "role":        msg['role'],
-                    "contract":    msg['contract'],
-                    "accept":      msg['accept'],
-                    "effortLevel": msg['effortLevel'],
-                    # Action denotes whether employer rewards or penalizes employee
-                    "action":      msg['action'],
-                    "wage":        msg['wage'],
-                    "payment":     msg['payment'] } })
+                    "status":                   "finished",
+                    "role":                     msg['role'],
+                    "contract":                 msg['contract'],
+                    "contractAccepted":         msg['contractAccepted'],
+                    "effortLevel":              msg['effortLevel'],
+                    "employerPostWorkDecision": msg['employerPostWorkDecision'],
+                    "wage":                     msg['wage'],
+                    "payment":                  msg['payment'] } })
 
                 GameConnection.PARTICIPANTS[self.rd][game_id] = set();
 
