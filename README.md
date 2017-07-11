@@ -23,7 +23,7 @@ Usage:
 - Each user will play an equal number of rounds as a worker and as an employer. The number of rounds is determined by the number of users in the session.
 - At the end of the game, users are presented a 'Thank You' screen, which states the amount they will be paid. Each user is paid for the points earned in one round as an employer and one round as a worker, each selected at random from the rounds played. This page directs users back to MTurk.
   - `TODO: Implement 'direct back to MTurk'.`
-  - `TODO: Implement payment for two randomly selected rounds (one as employer, one as worker.`
+  - `TODO: Implement payment for two randomly selected rounds (one as employer, one as worker).`
 
 ## Server-side
 ### `webserver.py`
@@ -45,21 +45,32 @@ Most HTML requests are resolved in handlers.py, except those that rely on Websoc
 ## Client-side
 ### `templates`
 As in a typical Angular.js web app, this folder containts the HTML templates for all of the app's pages.
+
+User flow, as specified under 'Usage' above:
+`index.html` --> `session.html` --> `about.html` --> `quiz.html` --> `instructions.html` --> `tutorial.html` --> `instructions2.html` --> `tutorial2.html` --> `welcome.html` --> `game.html` --> `payment.html`
+
 * `about.html`
 Contains game instructions.
 * `admin.html`
 Admin page. Used by the game administrator to start a 'session', and then start a 'game' once the word 'READY' appears next to the MTurk ID of each user in a session.
 * `game.html`
+Game page. Uses `ngView` to display subtemplates located in `static/game`.
 * `index.html`
 User landing page. URL params include MTurk ID (required) and Assignment ID (currently optional).
 * `instructions.html`
+Tutorial splash page for sample round as employer.
 * `instructions2.html`
+Tutorial splash page for sample round as worker.
 * `payment.html`
+Payment page. Last page seen by the user.
 * `quiz.html`
 Quiz page. Uses `ngView` to display subtemplates located in `static/quiz`.
 * `session.html`
+Initial waiting page seen by user. User waits here until they have been added to a session, at which point a 'Proceed' button appears.
 * `tutorial.html`
+Template for tutorial as employer.
 * `tutorial2.html`
+Template for tutorial as worker.
 * `welcome.html`
 Template for 'waiting room' page, where a user waits to be matched with an opponent.
   - `TODO: Rename to something like 'waiting-room.html'.`
@@ -68,19 +79,20 @@ Template for 'waiting room' page, where a user waits to be matched with an oppon
 The module handles timer countdown and validating MTurk IDs. It is included in most static pages that are not the waiting room, quiz or game pages.
 
 ### `session.js`
-This module begins the initial socket communication with the server. It opens a websocket connection to the server when a user enters their MTurk ID on the first page. Sends MTurk ID along with code `ENTRY_MSG` in initial message.
+Controller for the `session.html` template. This module begins the initial socket communication with the server, sending the MTurk ID along with code `ENTRY_MSG` in its initial message.
 
 Shows 'Proceed' button when `ACTIVATE_MSG` is received, which takes place once a new session is created from the Admin page. It also contains a utility fuunction `getUrlVars()`, which is used to pull parameters from a URL string.
 
 ### `waiting-room.js`
 See session.js — nearly identical. This module controls the waiting room page (`welcome.html` template).
-  - TODO: Unify with `session.js`.
+  - `TODO: Unify with session.js.`
 
 ### `quiz.js`
 Controls quiz. Very self explanatory. More details in the code comments.
 
 ### `tutorial.js` and `tutorial2.js`
-Control the tutorial. Currently pretty messy, as they are mostly copied from `game.js` with minor changes. Can probably be combined into a single file. May even be combined into `game.js` perhaps.
+Control the tutorial. Mostly copied from `game.js` with minor changes.
+  - `TODO: Combine into a single file. May even be combined into game.js.`
 
 ### `game.js`
 A lot going on here. Opens a GameConnection WebSocket. Most data saved in dataModel rather than $scope as it persists through the loading of a new page.
