@@ -1,6 +1,30 @@
 # Seed
 Original implementation by Bryant Chen (Github @bryantc99). Some updates made by Mateo Garcia (Github @mog96).
 
+Usage:
+- Game administrator loads the admin page: https://intense-sands-23697.herokuapp.com/admin.
+- Users load the user landing page: https://intense-sands-23697.herokuapp.com/?mid=us1&aid=2.
+  - 'mid' stands for MTurk ID.
+  - 'aid' stands for assignment ID.
+- Users enter their MTurk ID (which should be pre-filled) and click 'OK' to advance to a waiting screen.
+- Game administrator starts a 'session'. She selects a type of session (US-US, India-India, US-India, India-US), specifies a number of users to be included in the session, and clicks 'OK'. A new session appears under the 'Sessions' header at the bottom of the page.
+  - `TODO: Combine US-India and India-US?`
+  - `TODO: Only show 'Sessions' header when at least one session has been started?`
+- Users selected to join a session see a 'Proceed' button appear on their waiting screen, and click it to advance to the game instructions.
+- Users read the instructions and click 'Continue' at the bottom of the page to enter the instructions quiz.
+- Users are presented four consecutive screens, containing six questions in total. Users must get at least a score of 66% (four out of six questions correct) in order to proceed to the game.
+  - Users who score below 66% exit the game and are taken to a 'Thank You' page.
+- Users are then asked to complete a game tutorial. The tutorial is comprised of example screens form the game. Users play one example 'round' as a worker, and one example 'round' as an employer.
+- When users have completed the tutorial, they are presented a waiting screen, which states that they are being matched with an opponent.
+- On the admin page, the word 'READY' will appear next to the MTurk ID of users who have completed the game tutorial.
+- When all users are marked 'READY', the game administrator can click 'Start Game' to begin a game.
+  - `TODO: Only show 'Start Game' button when all users are ready?`
+- Once a user has been matched with an opponent selected at random from the group of users in the session, the user begins a round of the game as either an employer or a worker.
+- Each user will play an equal number of rounds as a worker and as an employer. The number of rounds is determined by the number of users in the session.
+- At the end of the game, users are presented a 'Thank You' screen, which states the amount they will be paid. Each user is paid for the points earned in one round as an employer and one round as a worker, each selected at random from the rounds played. This page directs users back to MTurk.
+  - `TODO: Implement 'direct back to MTurk'.`
+  - `TODO: Implement payment for two randomly selected rounds (one as employer, one as worker.`
+
 ## Server-side
 ### `webserver.py`
 Webserver.py houses the main backend infrastructure. It hosts three types of WebSocket connections. One for the session waiting room, one for the game waiting room, one for the game itself.
@@ -20,19 +44,25 @@ Most HTML requests are resolved in handlers.py, except those that rely on Websoc
 
 ## Client-side
 ### `templates`
-As in a typical Angular.js web app, this folder containts the HTML templates for all of the app's pages. The Quiz and Game pages make use of `ngView` to display the subtemplates located in the static/quiz and static/game folders, respectively.
+As in a typical Angular.js web app, this folder containts the HTML templates for all of the app's pages.
 * `about.html`
+Contains game instructions.
 * `admin.html`
+Admin page. Used by the game administrator to start a 'session', and then start a 'game' once the word 'READY' appears next to the MTurk ID of each user in a session.
 * `game.html`
 * `index.html`
+User landing page. URL params include MTurk ID (required) and Assignment ID (currently optional).
 * `instructions.html`
 * `instructions2.html`
 * `payment.html`
 * `quiz.html`
+Quiz page. Uses `ngView` to display subtemplates located in `static/quiz`.
 * `session.html`
 * `tutorial.html`
 * `tutorial2.html`
 * `welcome.html`
+Template for 'waiting room' page, where a user waits to be matched with an opponent.
+  - `TODO: Rename to something like 'waiting-room.html'.`
 
 ### `main.js`
 The module handles timer countdown and validating MTurk IDs. It is included in most static pages that are not the waiting room, quiz or game pages.
@@ -43,7 +73,7 @@ This module begins the initial socket communication with the server. It opens a 
 Shows 'Proceed' button when `ACTIVATE_MSG` is received, which takes place once a new session is created from the Admin page. It also contains a utility fuunction `getUrlVars()`, which is used to pull parameters from a URL string.
 
 ### `waiting-room.js`
-See session.js — nearly identical.
+See session.js — nearly identical. This module controls the waiting room page (`welcome.html` template).
   - TODO: Unify with `session.js`.
 
 ### `quiz.js`
