@@ -88,7 +88,7 @@ See session.js — nearly identical. This module controls the waiting room page
   - `TODO: Unify with session.js.`
 
 ### `quiz.js`
-Controls quiz. Very self explanatory. More details in the code comments.
+Controls quiz. Fairly straightforward -- code should be easy to read and understand.
 
 ### `tutorial.js` and `tutorial2.js`
 Control the tutorial. Mostly copied from `game.js` with minor changes.
