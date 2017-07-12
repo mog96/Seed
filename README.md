@@ -50,7 +50,7 @@ User flow, as specified under 'Usage' above:
 `index.html` --> `session.html` --> `about.html` --> `quiz.html` --> `instructions.html` --> `tutorial.html` --> `instructions2.html` --> `tutorial2.html` --> `welcome.html` --> `game.html` --> `payment.html`
 
 Descriptions of each template:
-* `about.html`
+#### `about.html`
 Contains game instructions.
 * `admin.html`
 Admin page. Used by the game administrator to start a 'session', and then start a 'game' once the word 'READY' appears next to the MTurk ID of each user in a session.
