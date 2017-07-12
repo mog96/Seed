@@ -52,27 +52,27 @@ User flow, as specified under 'Usage' above:
 Descriptions of each template:
 #### `about.html`
 Contains game instructions.
-* `admin.html`
+#### `admin.html`
 Admin page. Used by the game administrator to start a 'session', and then start a 'game' once the word 'READY' appears next to the MTurk ID of each user in a session.
-* `game.html`
+#### `game.html`
 Game page. Uses `ngView` to display subtemplates located in `static/game`.
-* `index.html`
+#### `index.html`
 User landing page. URL params include MTurk ID (required) and Assignment ID (currently optional).
-* `instructions.html`
+#### `instructions.html`
 Tutorial splash page for sample round as employer.
-* `instructions2.html`
+#### `instructions2.html`
 Tutorial splash page for sample round as worker.
-* `payment.html`
+#### `payment.html`
 Payment page. Last page seen by the user.
-* `quiz.html`
+#### `quiz.html`
 Quiz page. Uses `ngView` to display subtemplates located in `static/quiz`.
-* `session.html`
+#### `session.html`
 Initial waiting page seen by user. User waits here until they have been added to a session, at which point a 'Proceed' button appears.
-* `tutorial.html`
+#### `tutorial.html`
 Template for tutorial as employer.
-* `tutorial2.html`
+#### `tutorial2.html`
 Template for tutorial as worker.
-* `welcome.html`
+#### `welcome.html`
 Template for 'waiting room' page, where a user waits to be matched with an opponent.
   - `TODO: Rename to something like 'waiting-room.html'.`
 
@@ -103,5 +103,6 @@ General data flow:
 *	Function “sendEffortLevel” (or sendContract, sendAccept, etc) sends decision to server.
 *	Message bounces back to both parties in connection.
 *	Message is processed in `conn.onmessage()`, which works with `$scope.nextPage()` to determine game logic, based on selections by employer and worker.
+
   - `TODO: Unify.`
 * New page is loaded.
