@@ -77,12 +77,14 @@ Template for 'waiting room' page, where a user waits to be matched with an oppon
   - `// TODO: Rename to something like 'waiting-room.html'.`
 
 ### `main.js`
-The module handles timer countdown and validating MTurk IDs. It is included in most static pages that are not the waiting room, quiz or game pages.
+This module handles timer countdown and validating MTurk IDs. It is included in most static pages that are not the waiting room, quiz or game pages.
+
+This module also contains the list of accepted MTurk IDs (temporary).
 
 ### `session.js`
 Controller for the `session.html` template. This module begins the initial socket communication with the server, sending the MTurk ID along with code `ENTRY_MSG` in its initial message.
 
-Shows 'Proceed' button when `ACTIVATE_MSG` is received, which takes place once a new session is created from the Admin page. It also contains a utility fuunction `getUrlVars()`, which is used to pull parameters from a URL string.
+Shows 'Proceed' button when `ACTIVATE_MSG` is received, which takes place once a new session is created from the Admin page. It also contains a utility function `getUrlVars()`, which is used to pull parameters from a URL string.
 
 ### `waiting-room.js`
 See session.js — nearly identical. This module controls the waiting room page (`welcome.html` template).
@@ -100,7 +102,9 @@ A lot going on here. Opens a GameConnection WebSocket. Most data saved in dataMo
 
 General data flow:
 -	Client submits a decision.
--	Function “sendEffortLevel” (or sendContract, sendAccept, etc) sends decision to server.
--	Message bounces back to both parties in connection.
--	Message is processed in `conn.onmessage()`, which works with `$scope.nextPage()` to determine game logic, based on selections by employer and worker. (`// TODO: Unify.`)
-- New page is loaded.
+-	Function `$scope.game.sendEffortLevel()` (or `sendContract()`, `sendAccept()`, etc.) sends decision to server via websockets.
+-	Server bounces the message back to both connected clients.
+-	Message is processed on the client side in `conn.onmessage()`, which, in combination with `$scope.game.nextPage()`, handles the game logic. In their current state, these functions awkwardly split the responsibility of processing the selections by employer and worker. (`// TODO: Unify.`)
+- New page is loaded on the client side.
+
+The logic for computing the final wages earned by the employer and the worker, as well as the payment (in dollars) that each would earn given these wages, is currently in `$scope.game.nextPage()`. A future developer should look here to begin implementing payment integration with the MTurk platform.

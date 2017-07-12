@@ -4,7 +4,8 @@ var mainApp = angular.module('mainApp', ['ngResource']);
 
 function getUrlVars() {
     var vars = {}; 
-    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) { vars[key] = value; }); 
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) { vars[key] = value; });
+    console.log("URL VARS:", vars);
     return vars;
 }
 
