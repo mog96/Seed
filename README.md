@@ -103,5 +103,5 @@ General data flow:
 *	Function “sendEffortLevel” (or sendContract, sendAccept, etc) sends decision to server.
 *	Message bounces back to both parties in connection.
 *	Message is processed in `conn.onmessage()`, which works with `$scope.nextPage()` to determine game logic, based on selections by employer and worker.
-  - `TODO: Unify.`
+  * `TODO: Unify.`
 * New page is loaded.
