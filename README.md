@@ -27,7 +27,9 @@ Usage:
 
 ## Server-side
 ### `webserver.py`
-Webserver.py houses the main backend infrastructure. It hosts three types of WebSocket connections. One for the session waiting room, one for the game waiting room, one for the game itself.
+Houses the main backend infrastructure. It hosts three types of websocket connections. One for the session waiting room, one for the game waiting room, one for the game itself.
+
+Of most importance to a **future developer** is the `on_message` function of the `GameConnection` class. At the bottom of this function is the code that stores the final information about a game round in the database.
 
 #### `SessionConnection`
 Simple class. Registers each person who loads the session waiting room page, decrements the count of people on the page each time a connection closes. Admin also creates this type of connection in order to send message to create a new session.
@@ -39,7 +41,7 @@ Similar to SessionConnection, but also contains the matching algorithm and assig
 Each connection has two clients, every message is bounced back to both with info on contract, effort level, etc. Pretty simple backend, more going on in Angular on the client side.
 
 ### `handlers.py`
-Most HTML requests are resolved in handlers.py, except those that rely on Websocket Connection variables — specifically AdminHandler for the admin screen. This module is pretty self explanatory. Contains some leftover handlers from UbiquityLab.
+Most HTML requests are resolved in handlers.py, except those that rely on websocket Connection variables — specifically AdminHandler for the admin screen. This module is pretty self explanatory. Contains some leftover handlers from UbiquityLab.
 
 
 ## Client-side
@@ -98,7 +100,9 @@ Control the tutorial. Mostly copied from `game.js` with minor changes.
   - `// TODO: Combine into a single file. May even be combined into game.js.`
 
 ### `game.js`
-A lot going on here. Opens a GameConnection WebSocket. Most data saved in dataModel rather than $scope as it persists through the loading of a new page.
+A lot going on here. Opens a `GameConnection` websocket (see `webserver.py`).
+
+Most data is saved in `dataModel` service object rather than a `$scope` object as it persists through the loading of a new page.
 
 General data flow:
 -	Client submits a decision.
@@ -107,4 +111,6 @@ General data flow:
 -	Message is processed on the client side in `conn.onmessage()`, which, in combination with `$scope.game.nextPage()`, handles the game logic. In their current state, these functions awkwardly split the responsibility of processing the selections by employer and worker. (`// TODO: Unify.`)
 - New page is loaded on the client side.
 
-The logic for computing the final wages earned by the employer and the worker, as well as the payment (in dollars) that each would earn given these wages, is currently in `$scope.game.nextPage()`. A future developer should look here to begin implementing payment integration with the MTurk platform.
+The logic for computing the final wages earned by the employer and the worker, as well as the payment (in dollars) that each would earn given these wages, is currently in `$scope.game.nextPage()`. A **future developer** should look here to begin implementing payment integration with the MTurk platform.
+
+As noted above, the `on_message` function of the `GameConnection` class in [`webserver.py`](https://github.com/mog96/seed/tree/mog-payment-structure#webserverpy) contains the code that stores the final information about a game round in the database. It currently takes all of the parameters sent from `$scope.game.nextPage()` in this `game.js` module and puts them directly in the database. A **future developer** should look here to begin modifying what is stored in the DB.
