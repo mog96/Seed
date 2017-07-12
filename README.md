@@ -49,6 +49,7 @@ As in a typical Angular.js web app, this folder containts the HTML templates for
 User flow, as specified under 'Usage' above:
 `index.html` --> `session.html` --> `about.html` --> `quiz.html` --> `instructions.html` --> `tutorial.html` --> `instructions2.html` --> `tutorial2.html` --> `welcome.html` --> `game.html` --> `payment.html`
 
+Descriptions of each template:
 * `about.html`
 Contains game instructions.
 * `admin.html`
@@ -98,9 +99,9 @@ Control the tutorial. Mostly copied from `game.js` with minor changes.
 A lot going on here. Opens a GameConnection WebSocket. Most data saved in dataModel rather than $scope as it persists through the loading of a new page.
 
 General data flow:
--	Client submits a decision.
--	Function “sendEffortLevel” (or sendContract, sendAccept, etc) sends decision to server.
--	Message bounces back to both parties in connection.
--	Message is processed in `conn.onmessage()`, which works with `$scope.nextPage()` to determine game logic, based on selections by employer and worker.
-  - TODO: Unify.
-- New page is loaded.
+*	Client submits a decision.
+*	Function “sendEffortLevel” (or sendContract, sendAccept, etc) sends decision to server.
+*	Message bounces back to both parties in connection.
+*	Message is processed in `conn.onmessage()`, which works with `$scope.nextPage()` to determine game logic, based on selections by employer and worker.
+  - `TODO: Unify.`
+* New page is loaded.
