@@ -8,8 +8,8 @@ Usage:
   - 'aid' stands for assignment ID.
 - Users enter their MTurk ID (which should be pre-filled) and click 'OK' to advance to a waiting screen.
 - Game administrator starts a 'session'. She selects a type of session (US-US, India-India, US-India, India-US), specifies a number of users to be included in the session, and clicks 'OK'. A new session appears under the 'Sessions' header at the bottom of the page.
-  - `TODO: Combine US-India and India-US?`
-  - `TODO: Only show 'Sessions' header when at least one session has been started?`
+  - `// TODO: Combine US-India and India-US?`
+  - `// TODO: Only show 'Sessions' header when at least one session has been started?`
 - Users selected to join a session see a 'Proceed' button appear on their waiting screen, and click it to advance to the game instructions.
 - Users read the instructions and click 'Continue' at the bottom of the page to enter the instructions quiz.
 - Users are presented four consecutive screens, containing six questions in total. Users must get at least a score of 66% (four out of six questions correct) in order to proceed to the game.
@@ -18,12 +18,12 @@ Usage:
 - When users have completed the tutorial, they are presented a waiting screen, which states that they are being matched with an opponent.
 - On the admin page, the word 'READY' will appear next to the MTurk ID of users who have completed the game tutorial.
 - When all users are marked 'READY', the game administrator can click 'Start Game' to begin a game.
-  - `TODO: Only show 'Start Game' button when all users are ready?`
+  - `// TODO: Only show 'Start Game' button when all users are ready?`
 - Once a user has been matched with an opponent selected at random from the group of users in the session, the user begins a round of the game as either an employer or a worker.
 - Each user will play an equal number of rounds as a worker and as an employer. The number of rounds is determined by the number of users in the session.
 - At the end of the game, users are presented a 'Thank You' screen, which states the amount they will be paid. Each user is paid for the points earned in one round as an employer and one round as a worker, each selected at random from the rounds played. This page directs users back to MTurk.
-  - `TODO: Implement 'direct back to MTurk'.`
-  - `TODO: Implement payment for two randomly selected rounds (one as employer, one as worker).`
+  - `// TODO: Implement 'direct back to MTurk'.`
+  - `// TODO: Implement payment for two randomly selected rounds (one as employer, one as worker).`
 
 ## Server-side
 ### `webserver.py`
@@ -74,7 +74,7 @@ Template for tutorial as employer.
 Template for tutorial as worker.
 #### `welcome.html`
 Template for 'waiting room' page, where a user waits to be matched with an opponent.
-  - `TODO: Rename to something like 'waiting-room.html'.`
+  - `// TODO: Rename to something like 'waiting-room.html'.`
 
 ### `main.js`
 The module handles timer countdown and validating MTurk IDs. It is included in most static pages that are not the waiting room, quiz or game pages.
@@ -86,14 +86,14 @@ Shows 'Proceed' button when `ACTIVATE_MSG` is received, which takes place once a
 
 ### `waiting-room.js`
 See session.js — nearly identical. This module controls the waiting room page (`welcome.html` template).
-  - `TODO: Unify with session.js.`
+  - `// TODO: Unify with session.js.`
 
 ### `quiz.js`
 Controls quiz. Fairly straightforward -- code should be easy to read and understand.
 
 ### `tutorial.js` and `tutorial2.js`
 Control the tutorial. Mostly copied from `game.js` with minor changes.
-  - `TODO: Combine into a single file. May even be combined into game.js.`
+  - `// TODO: Combine into a single file. May even be combined into game.js.`
 
 ### `game.js`
 A lot going on here. Opens a GameConnection WebSocket. Most data saved in dataModel rather than $scope as it persists through the loading of a new page.
@@ -102,5 +102,5 @@ General data flow:
 -	Client submits a decision.
 -	Function “sendEffortLevel” (or sendContract, sendAccept, etc) sends decision to server.
 -	Message bounces back to both parties in connection.
--	Message is processed in `conn.onmessage()`, which works with `$scope.nextPage()` to determine game logic, based on selections by employer and worker. (`TODO: Unify.`)
+-	Message is processed in `conn.onmessage()`, which works with `$scope.nextPage()` to determine game logic, based on selections by employer and worker. (`// TODO: Unify.`)
 - New page is loaded.
