@@ -1,7 +1,7 @@
 # Seed
 Original implementation by Bryant Chen (Github @bryantc99). Some updates made by Mateo Garcia (Github @mog96).
 
-Usage:
+## Usage:
 - Game administrator loads the admin page: https://intense-sands-23697.herokuapp.com/admin.
 - Users load the user landing page: https://intense-sands-23697.herokuapp.com/?mid=us1&aid=2.
   - 'mid' stands for MTurk ID.
